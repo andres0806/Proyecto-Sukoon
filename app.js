@@ -355,6 +355,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     // Success State
                     resForm.classList.add('hidden');
+                    const formTitle = document.getElementById('res-form-title');
+                    if (formTitle) formTitle.classList.add('hidden');
                     successMsg.classList.remove('hidden');
                     successMsg.classList.add('flex');
                 } else {
