@@ -135,8 +135,15 @@ document.addEventListener('DOMContentLoaded', () => {
             html += `<div class="calendar-day empty"></div>`;
         }
         for(let i=1; i<=daysInMonth; i++) {
-            let classes = 'calendar-day cursor-pointer hover:bg-gray-100 transition-colors';
+            let classes = 'calendar-day transition-colors';
             let dayIndex = i + indexOffset;
+            const isPastDay = dayIndex < 22; // 22 de Mayo es el día actual
+            
+            if (isPastDay) {
+                classes += ' text-gray-300 cursor-not-allowed';
+            } else {
+                classes += ' cursor-pointer hover:bg-gray-100';
+            }
             
             if (dayIndex === selectedStartDay) {
                 classes += ' selected rounded-l-full';
@@ -148,7 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 classes += ' rounded-full';
             }
             
-            html += `<div class="${classes}" onclick="handleDayClick(${dayIndex})">${i}</div>`;
+            const clickHandler = isPastDay ? '' : `onclick="handleDayClick(${dayIndex})"`;
+            html += `<div class="${classes}" ${clickHandler}>${i}</div>`;
         }
         container.innerHTML = html;
     }
